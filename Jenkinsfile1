@@ -17,13 +17,11 @@ pipeline {
             steps {
                 sh 'mvn clean install'
             }
+        }
 
-            post {
-                
-                success {
-                    
-                    archiveArtifacts 'target/*.war'
-                }
+        stage('Send artifact to Nexus') {
+            steps {
+                nexusArtifactUploader artifacts: [[artifactId: 'SNAPSHOT-2.1.0', classifier: '', file: 'target/mvc_1.war', type: 'war']], credentialsId: 'nexus-cred', groupId: 'vpro-maven-group', nexusUrl: '3.99.148.170:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'vprofile-snapshots', version: '1.0'
             }
         }
     }
