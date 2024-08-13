@@ -23,7 +23,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 // Build the Docker image using Dockerfile
-                sh "docker build -t sample_app:$BUILD_NUMBER ."
+                sh "docker build -t parthrajv/sample_app:$BUILD_NUMBER ."
             }
         }
 
