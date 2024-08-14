@@ -21,8 +21,7 @@ pipeline {
 
         stage('Send artifact to Nexus') {
             steps {
-                nexusArtifactUploader artifacts: [[artifactId: '2.1.1-SNAPSHOT', classifier: '', file: 'target/mvc_1.war', type: 'war']], credentialsId: 'Nexus-pass', groupId: 'vpro-maven-group', nexusUrl: '35.183.39.172:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'vprofile-snapshots', version: '1.1'
-            }
+                nexusArtifactUploader artifacts: [[artifactId: 'SNAPSHOT.2.1.1', classifier: '', file: 'target/mvc_1.war', type: 'war']], credentialsId: 'nexus-pass', groupId: 'vpro-maven-group', nexusUrl: '99.79.76.50:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'vprofile-snapshots', version: '1.0.1'            }
         }
     }
 }
