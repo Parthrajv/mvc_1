@@ -20,14 +20,14 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+	stage('Build Docker Image') {
             steps {
                 // Build the Docker image using Dockerfile
                 sh "docker build -t parthrajv/sample_app:$BUILD_NUMBER ."
             }
         }
 
-	    stage('User Approval') {
+	stage('User Approval') {
             steps {
                 script {
                     // Pauses the pipeline and asks for user input before proceeding
@@ -41,9 +41,15 @@ pipeline {
             steps {
                 script {
                     echo 'Pushing Docker image to Docker Hub...'
-                    sh "docker login -u parthrajv -p Rajkot@123"
-                    sh "docker push parthrajv/sample_app:$BUILD_NUMBER"
+                    sh "docker login -u pXXXXXXjv -p RXXXXXXX3"
+                    sh "docker push pXXXXXXjv/sample_app:$BUILD_NUMBER"
                 }
+            }
+        }
+
+	stage('Send artifact to Nexus') {
+            steps {
+                nexusArtifactUploader artifacts: [[artifactId: 'SNAPSHOT', classifier: '', file: 'target/mvc_1.war', type: 'war']], credentialsId: 'nexus', groupId: 'vpro-maven-group', nexusUrl: '35.183.27.32:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'vprofile-snapshots', version: '1.3'
             }
         }
 
