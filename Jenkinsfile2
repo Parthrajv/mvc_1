@@ -29,6 +29,13 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+            steps {
+                // Build the Docker image using Dockerfile
+                sh "docker build -t $DOCKER_USER/sample_app:$BUILD_NUMBER ."
+            }
+        }
+
         stage('User Approval') {
             steps {
                 script {
@@ -46,7 +53,7 @@ pipeline {
                         sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
                     }
                     echo 'Pushing Docker image to Docker Hub...'
-                    sh "docker push parthrajv/sample_app:$BUILD_NUMBER"
+                    sh "docker push $DOCKER_USER/sample_app:$BUILD_NUMBER"
                 }
             }
         }
