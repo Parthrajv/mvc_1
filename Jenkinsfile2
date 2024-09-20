@@ -46,7 +46,7 @@ pipeline {
                         sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
                     }
                     echo 'Pushing Docker image to Docker Hub...'
-                    sh "docker push $DOCKER_USER/sample_app:$BUILD_NUMBER"
+                    sh "docker push parthrajv/sample_app:$BUILD_NUMBER"
                 }
             }
         }
