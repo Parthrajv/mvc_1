@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_CREDENTIALS_ID = 'docker-cred'
+    }
+
     tools {
         // Install the Maven version configured as "M3" and add it to the path.
         maven "Maven"
@@ -23,6 +27,28 @@ pipeline {
             steps {
                 sh 'mvn clean install'
             }
-        }       
+        }
+
+        stage('User Approval') {
+            steps {
+                script {
+                    // Pauses the pipeline and asks for user input before proceeding
+                    def userInput = input(id: 'PushConfirmation', message: 'Do you want to push the Docker image to Docker Hub?', ok: 'Yes', parameters: [])
+                    echo "User approved the push: ${userInput}"
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: "$DOCKER_CREDENTIALS_ID", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+                    
+                    echo 'Pushing Docker image to Docker Hub...'
+                    sh "docker push $DOCKER_USER/sample_app:$BUILD_NUMBER"
+                }
+            }
+        }
     }
 }
