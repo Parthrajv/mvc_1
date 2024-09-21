@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-cred'
+        KUBECONFIG = '/root/.kube/config'
     }
 
     tools {
@@ -54,6 +55,19 @@ pipeline {
                     }
                     echo 'Pushing Docker image to Docker Hub...'
                     sh "docker push parthrajv/sample_app:$BUILD_NUMBER"
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    echo 'Deploying application to Kubernetes...'
+                    
+                    // Run kubectl commands
+                    sh '''
+                        kubectl get nodes
+                    '''
                 }
             }
         }
