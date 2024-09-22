@@ -68,7 +68,7 @@ pipeline {
                     // Run kubectl commands
                     sh '''
                         kubectl get nodes
-                        cd /K8s
+                        cd K8s
                     '''
                 }
             }
