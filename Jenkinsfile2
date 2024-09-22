@@ -68,7 +68,7 @@ pipeline {
                     // Run kubectl commands
                     sh '''
                         kubectl get nodes
-                        pwd
+                        cd /K8s
                     '''
                 }
             }
