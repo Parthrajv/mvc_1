@@ -1,0 +1,22 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-app-deployment
+  labels:
+    app: sample-app
+spec:
+  replicas: 3  # Number of pods
+  selector:
+    matchLabels:
+      app: sample-app
+  template:
+    metadata:
+      labels:
+        app: sample-app
+    spec:
+      containers:
+      - name: sample-app-container
+        image: parthrajv/sample_app:$BUILD_NUMBER
+        ports:
+        - containerPort: 80  # Port the app listens on inside the container
