@@ -3,7 +3,8 @@ pipeline {
 
     environment {
         DOCKER_CREDENTIALS_ID = 'docker-cred'
-        KUBECONFIG = '/root/.kube/config'
+        KUBECONFIG= '/var/lib/jenkins/.kube/config'
+
     }
 
     tools {
