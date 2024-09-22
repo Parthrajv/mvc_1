@@ -68,7 +68,7 @@ pipeline {
                     // Run kubectl commands
                     sh '''
                         cd K8s
-                        kubectl -f apply K8s/deplyment.yaml
+                        kubectl -f apply K8s/deployment.yaml
                         kubectl -f apply K8s/service.yaml
                     '''
                 }
