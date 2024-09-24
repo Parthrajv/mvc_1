@@ -68,7 +68,7 @@ pipeline {
                     // Run kubectl commands
                     sh '''
                         cd K8s
-                        sed -i 's|parthrajv/sample_app:2|parthrajv/sample_app:BUILD_NUMBER|g' /var/lib/jenkins/workspace/sample_app/deployment.yaml
+                        sed -i 's|parthrajv/sample_app:2|parthrajv/sample_app:BUILD_NUMBER|g' /var/lib/jenkins/workspace/sample_app/K8s/deployment.yaml
                         kubectl apply -f deployment.yaml
                         kubectl apply -f service.yaml
                     '''
