@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: sample-app-container
-        image: parthrajv/sample_app:$BUILD_NUMBER
+        image: parthrajv/sample_app:2
         ports:
         - containerPort: 80  # Port the app listens on inside the container
